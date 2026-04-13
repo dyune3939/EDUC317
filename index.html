@@ -1,1 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Can We Keep Swimming?</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <!-- Chart.js for visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
 
+  <!-- ========== SECTION 1: INTRO ========== -->
+  <section id="intro">
+    <div class="intro-overlay"></div>
+    <div class="intro-content">
+      <p class="intro-eyebrow">A Climate Justice Story</p>
+      <h1>Can We Keep<br/><em>Swimming?</em></h1>
+      <p class="intro-sub">Climate change. Inequality. The sport I love.</p>
+      <a href="#personal" class="scroll-down">↓ Dive In</a>
+    </div>
+    <div class="wave-divider">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#f5f0e8"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 2: PERSONAL CONNECTION ========== -->
+  <section id="personal">
+    <div class="container">
+      <div class="personal-grid">
+        <div class="personal-text">
+          <span class="section-label">01 — Introduction</span>
+          <h2>Swimming is one<br/>of my joys.</h2>
+          <p>I've dedicated much of my life to the water — the feeling of moving through it, training in it, competing in it. It's where I feel most at home.</p>
+          <p>My minor in data science is another part of who I am — a set of tools I feel confident using. This project brings those two parts of my identity together.</p>
+          <p class="pull-quote">"What happens to swimming as climate change worsens — and how can we keep it alive?"</p>
+        </div>
+        <div class="personal-visual">
+          <div class="stat-card">
+            <span class="stat-number">3</span>
+            <span class="stat-label">key threats to swimming's future</span>
+          </div>
+          <div class="stat-card accent">
+            <span class="stat-number">↓</span>
+            <span class="stat-label">Water safety, access equity, infrastructure sustainability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 3: FRAMING QUESTION ========== -->
+  <section id="framing">
+    <div class="container">
+      <div class="framing-center">
+        <span class="section-label">02 — The Question</span>
+        <h2 class="framing-big">What does it take<br/>to keep swimming<br/><em>possible?</em></h2>
+        <div class="three-pillars">
+          <div class="pillar">
+            <div class="pillar-icon">💧</div>
+            <h3>Safe Water</h3>
+            <p>Not all water is safe to swim in</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🏊</div>
+            <h3>Equal Access</h3>
+            <p>Not everyone has equal access to swimming</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">⚡</div>
+            <h3>Sustainability</h3>
+            <p>Pool infrastructure is resource-intensive</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 4: WATER SAFETY ========== -->
+  <section id="water-safety">
+    <div class="container">
+      <span class="section-label">03 — Water Safety</span>
+      <div class="section-header">
+        <h2>The Water Isn't Always Safe</h2>
+        <p class="section-intro">Harmful algal blooms (HABs) are increasingly common as water temperatures rise. When blooms occur, swimming is unsafe — sometimes deadly. The data below shows reported HAB events in [YOUR LOCATION] over time.</p>
+      </div>
+
+      <div class="chart-wrapper">
+        <canvas id="habChart"></canvas>
+      </div>
+      <p class="data-source">Source: EPA Harmful Algal Bloom data — <a href="https://www.epa.gov/nutrientpollution/harmful-algal-blooms" target="_blank">epa.gov</a> · <span class="data-note">Replace placeholder data with real EPA data for your chosen location</span></p>
+
+      <div class="takeaway-box">
+        <strong>Takeaway:</strong> Even when water exists, it is not always safe — this directly limits who can swim and when.
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 5: WHO GETS TO SWIM ========== -->
+  <section id="access">
+    <div class="container">
+      <span class="section-label">04 — Access & Inequality</span>
+      <div class="section-header">
+        <h2>Who Gets to Swim?</h2>
+        <p class="section-intro">Swimming is often portrayed as a universal sport — but access to lessons, facilities, and safe water is deeply unequal. CDC data reveals stark disparities in swimming ability and drowning risk by race.</p>
+      </div>
+
+      <div class="chart-wrapper">
+        <canvas id="accessChart"></canvas>
+      </div>
+      <p class="data-source">Source: CDC — <a href="https://www.cdc.gov/drowning/data/index.html" target="_blank">cdc.gov/drowning</a> · <span class="data-note">Update with specific CDC figures on swimming ability by demographic</span></p>
+
+      <div class="takeaway-box">
+        <strong>Takeaway:</strong> Structural barriers — cost of lessons, lack of nearby pools, historical exclusion — mean swimming has never been equally accessible. Climate change threatens to deepen these gaps.
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 6: POOL SUSTAINABILITY (INTERACTIVE) ========== -->
+  <section id="sustainability">
+    <div class="container">
+      <span class="section-label">05 — Pool Sustainability</span>
+      <div class="section-header">
+        <h2>Pools Have a Price</h2>
+        <p class="section-intro">Every pool requires energy to heat, filter, and light — and water to fill and top off. Adjust the slider below to see how pool size affects resource use.</p>
+      </div>
+
+      <div class="slider-section">
+        <div class="slider-left">
+          <label for="poolSlider">Pool Size (gallons)</label>
+          <input type="range" id="poolSlider" min="10000" max="100000" step="5000" value="30000"/>
+          <div class="slider-value"><span id="poolGallons">30,000</span> gallons</div>
+          <p class="slider-note">A standard backyard pool is ~15,000 gal. An Olympic pool is ~660,000 gal.</p>
+        </div>
+        <div class="slider-right">
+          <div class="output-card">
+            <span class="output-label">⚡ Annual Energy Use</span>
+            <span class="output-value" id="energyOutput">—</span>
+            <span class="output-unit">kWh / year</span>
+          </div>
+          <div class="output-card">
+            <span class="output-label">💧 Annual Water Needed</span>
+            <span class="output-value" id="waterOutput">—</span>
+            <span class="output-unit">gallons / year</span>
+          </div>
+          <div class="output-card efficient">
+            <span class="output-label">✅ With Efficient System</span>
+            <span class="output-value" id="efficientOutput">—</span>
+            <span class="output-unit">kWh / year (≈30% less)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="takeaway-box">
+        <strong>Takeaway:</strong> Larger pools mean more energy, more water, more cost. As droughts worsen and energy prices rise, maintaining pools may become harder — especially for public and community facilities.
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 7: FUTURE OF SWIMMING ========== -->
+  <section id="future">
+    <div class="container">
+      <span class="section-label">06 — The Future</span>
+      <div class="section-header">
+        <h2>What Comes Next?</h2>
+      </div>
+      <div class="future-grid">
+        <div class="future-scenario">
+          <h3>2030s</h3>
+          <p>More frequent HABs close open-water venues. Pool maintenance costs rise as energy and water become more expensive in drought-prone regions.</p>
+        </div>
+        <div class="future-scenario">
+          <h3>2040s</h3>
+          <p>Public pools in underfunded communities close at higher rates. Competitive swimming consolidates around well-resourced institutions.</p>
+        </div>
+        <div class="future-scenario">
+          <h3>2050</h3>
+          <p>Swimming becomes a sport defined by access to resources — a luxury rather than a community activity. Who still gets to swim?</p>
+        </div>
+      </div>
+      <div class="future-questions">
+        <h3>Questions to sit with:</h3>
+        <ul>
+          <li>Will pools become more expensive to maintain and access?</li>
+          <li>Who will still have access to safe swimming environments?</li>
+          <li>How can we design more equitable and sustainable aquatic infrastructure?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 8: REFLECTION ========== -->
+  <section id="reflection">
+    <div class="container">
+      <span class="section-label">07 — Reflection</span>
+      <div class="reflection-center">
+        <h2>What should it take<br/>to keep swimming<br/><em>accessible and sustainable?</em></h2>
+        <p>Swimming shaped who I am. The question is whether it gets to shape the next generation too — and for everyone, not just those with resources.</p>
+        <p class="reflection-credit">A Climate Justice Educational Engagement project · EDUC 317</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
