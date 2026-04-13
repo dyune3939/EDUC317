@@ -1,0 +1,534 @@
+/* ============================================================
+   CAN WE KEEP SWIMMING? — Main Stylesheet
+   Aesthetic: Editorial / Water-inspired / Narrative journalism
+   ============================================================ */
+
+/* --- VARIABLES & RESET --- */
+:root {
+  --ink:        #1a1a2e;
+  --cream:      #f5f0e8;
+  --water:      #0077b6;
+  --water-light:#48cae4;
+  --algae:      #2d6a4f;
+  --sand:       #e9c46a;
+  --danger:     #c1440e;
+  --white:      #ffffff;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* --- SHARED --- */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--water);
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+
+h2 em {
+  font-style: italic;
+  color: var(--water);
+}
+
+p { margin-bottom: 1rem; }
+
+a { color: var(--water); }
+
+/* ============================================================
+   SECTION 1 — INTRO
+   ============================================================ */
+#intro {
+  position: relative;
+  min-height: 100vh;
+  background:
+    linear-gradient(160deg, #0077b6 0%, #023e8a 40%, #03045e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Animated water shimmer */
+#intro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 30px,
+    rgba(255,255,255,0.03) 30px,
+    rgba(255,255,255,0.03) 60px
+  );
+  animation: shimmer 8s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: 0 0; }
+  to   { background-position: 120px 120px; }
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--white);
+  padding: 2rem;
+  animation: fadeUp 1.2s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.intro-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+}
+
+#intro h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+}
+
+#intro h1 em {
+  font-style: italic;
+  color: var(--water-light);
+}
+
+.intro-sub {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  letter-spacing: 0.05em;
+  margin-bottom: 3rem;
+}
+
+.scroll-down {
+  display: inline-block;
+  color: var(--white);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  transition: all 0.3s;
+}
+.scroll-down:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: white;
+}
+
+.wave-divider {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+}
+.wave-divider svg { display: block; width: 100%; height: 80px; }
+
+/* ============================================================
+   SECTION 2 — PERSONAL
+   ============================================================ */
+#personal {
+  background: var(--cream);
+  padding: 7rem 0 6rem;
+}
+
+.personal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+@media (max-width: 700px) {
+  .personal-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+.personal-text h2 { margin-bottom: 1.5rem; }
+
+.pull-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--water);
+  border-left: 3px solid var(--water-light);
+  padding-left: 1.25rem;
+  margin-top: 2rem;
+  line-height: 1.5;
+}
+
+.stat-card {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.stat-card.accent {
+  background: var(--water);
+  color: var(--white);
+  border-color: transparent;
+}
+
+.stat-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   SECTION 3 — FRAMING
+   ============================================================ */
+#framing {
+  background: var(--ink);
+  padding: 7rem 0;
+  color: var(--cream);
+}
+
+.framing-center { text-align: center; }
+
+.framing-big {
+  color: var(--cream);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  margin: 2rem 0 4rem;
+}
+
+.framing-big em { color: var(--water-light); }
+
+#framing .section-label { color: var(--water-light); }
+
+.three-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .three-pillars { grid-template-columns: 1fr; }
+}
+
+.pillar {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+}
+
+.pillar-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+.pillar h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--water-light);
+  margin-bottom: 0.5rem;
+}
+
+.pillar p { font-size: 0.9rem; opacity: 0.7; margin: 0; }
+
+/* ============================================================
+   SECTIONS 4 & 5 — DATA SECTIONS
+   ============================================================ */
+#water-safety { background: var(--cream); padding: 7rem 0 5rem; }
+#access       { background: var(--white); padding: 7rem 0 5rem; }
+
+.section-header { margin-bottom: 3rem; }
+
+.section-intro {
+  max-width: 680px;
+  color: #444;
+  font-size: 1.05rem;
+}
+
+.chart-wrapper {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.04);
+  max-height: 420px;
+}
+
+#access .chart-wrapper { background: var(--cream); }
+
+.data-source {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.data-note {
+  background: #fff3cd;
+  color: #7a5c00;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  font-style: italic;
+}
+
+.takeaway-box {
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.takeaway-box strong { color: var(--water-light); }
+
+/* ============================================================
+   SECTION 6 — INTERACTIVE SLIDER
+   ============================================================ */
+#sustainability {
+  background: #eef6fb;
+  padding: 7rem 0 5rem;
+}
+
+.slider-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+@media (max-width: 700px) {
+  .slider-section { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.slider-left label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--water) 0%, var(--water-light) 100%);
+  outline: none;
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--water);
+  border: 3px solid var(--white);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.slider-value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--water);
+}
+
+.slider-note {
+  font-size: 0.82rem;
+  color: #666;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+.output-card {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.output-card.efficient {
+  border-color: var(--algae);
+  background: #f0faf4;
+}
+
+.output-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #666;
+  margin-bottom: 0.4rem;
+}
+
+.output-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.output-unit {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 0.25rem;
+}
+
+/* ============================================================
+   SECTION 7 — FUTURE
+   ============================================================ */
+#future {
+  background: var(--cream);
+  padding: 7rem 0 5rem;
+}
+
+.future-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 650px) {
+  .future-grid { grid-template-columns: 1fr; }
+}
+
+.future-scenario {
+  border-top: 3px solid var(--water-light);
+  padding-top: 1.5rem;
+}
+
+.future-scenario h3 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--water);
+  margin-bottom: 0.75rem;
+}
+
+.future-scenario p { font-size: 0.95rem; color: #444; }
+
+.future-questions {
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 16px;
+  padding: 2.5rem;
+}
+
+.future-questions h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--water-light);
+  margin-bottom: 1.25rem;
+}
+
+.future-questions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.future-questions li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.future-questions li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--water-light);
+}
+
+.future-questions li:last-child { border-bottom: none; }
+
+/* ============================================================
+   SECTION 8 — REFLECTION
+   ============================================================ */
+#reflection {
+  background: linear-gradient(160deg, #023e8a, #0077b6);
+  color: var(--white);
+  padding: 8rem 0;
+  text-align: center;
+}
+
+.reflection-center h2 {
+  color: var(--white);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 2rem;
+}
+
+.reflection-center h2 em { color: var(--water-light); }
+
+.reflection-center p { color: rgba(255,255,255,0.8); font-size: 1.1rem; max-width: 600px; margin: 0 auto 1rem; }
+
+.reflection-credit {
+  font-size: 0.8rem !important;
+  opacity: 0.5 !important;
+  margin-top: 4rem !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
