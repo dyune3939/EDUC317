@@ -145,21 +145,18 @@ const accessCtx = document.getElementById('accessChart').getContext('2d');
 new Chart(accessCtx, {
   type: 'bar',
   data: {
-    labels: ['Black adults', 'Hispanic adults', 'Other race/ethnicity', 'White adults', 'All U.S. adults'],
+    labels: ['Hispanic adults', 'Black adults', 'All U.S. adults', 'Other race/ethnicity', 'White adults'],
     datasets: [
       {
-        label: '% who cannot swim (CDC 2024)',
-        // Source: CDC Vital Signs 2024 — exact figures
-        data: [37, null, null, null, 15],
-        backgroundColor: 'rgba(193, 68, 14, 0.8)',
-        borderWidth: 0,
-        borderRadius: 6,
-      },
-      {
-        label: '% who never took a swimming lesson (CDC 2024)',
-        // Source: CDC Vital Signs 2024 — exact figures
-        data: [63, 72, 53, 48, 55],
-        backgroundColor: 'rgba(0, 119, 182, 0.65)',
+        label: '% who have never taken a swimming lesson (CDC 2024)',
+        data: [72, 63, 55, 53, 48],
+        backgroundColor: [
+          'rgba(193, 68, 14, 0.85)',
+          'rgba(193, 68, 14, 0.7)',
+          'rgba(0, 119, 182, 0.5)',
+          'rgba(0, 119, 182, 0.6)',
+          'rgba(0, 119, 182, 0.75)',
+        ],
         borderWidth: 0,
         borderRadius: 6,
       }
@@ -170,10 +167,10 @@ new Chart(accessCtx, {
     responsive: true,
     maintainAspectRatio: true,
     plugins: {
-      legend: { display: true, position: 'top' },
+      legend: { display: false },
       tooltip: {
         callbacks: {
-          label: ctx => ctx.raw !== null ? ` ${ctx.raw}%` : ' data not reported'
+          label: ctx => ` ${ctx.raw}% have never taken a swimming lesson`
         }
       }
     },
@@ -181,12 +178,10 @@ new Chart(accessCtx, {
       x: {
         beginAtZero: true,
         max: 100,
-        title: { display: true, text: 'Percentage (%)' },
+        title: { display: true, text: '% who have never taken a swimming lesson' },
         grid: { color: 'rgba(0,0,0,0.06)' }
       },
-      y: {
-        grid: { display: false }
-      }
+      y: { grid: { display: false } }
     }
   }
 });
