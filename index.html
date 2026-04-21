@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <!-- Chart.js for visualizations -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3"></script>
 </head>
 <body>
 
@@ -34,9 +33,9 @@
       <div class="personal-grid">
         <div class="personal-text">
           <span class="section-label">01 — Introduction</span>
-          <h2>Swimming is one<br/>of my joys.</h2>
-          <p>I've dedicated much of my life to the water — the feeling of moving through it, training in it, competing in it. It's where I feel most at home.</p>
-          <p>My minor in data science is another part of who I am — a set of tools I feel confident using. This project brings those two parts of my identity together.</p>
+          <h2>My Joy:<br/>Swimming</h2>
+          <p>I've been swimming for over 15 years, and the water has always felt like home. Whether in pools, oceans, or lakes, I've always been drawn to the feeling of moving through it and competing.</p>
+          <p>Now, I swim on the William & Mary Tribe swimming varsity team as a multiple CAA conference medalist. As a data science minor, this project brings those parts of my life together: using data to expose hidden injustices in swimming.</p>
           <p class="pull-quote">"What happens to swimming as climate change worsens — and how can we keep it alive?"</p>
         </div>
         <div class="personal-visual">
@@ -86,16 +85,16 @@
       <span class="section-label">03 — Water Safety</span>
       <div class="section-header">
         <h2>The Water Isn't Always Safe</h2>
-        <p class="section-intro">Harmful algal blooms (HABs) are increasingly common as water temperatures rise. When blooms occur, swimming is unsafe — sometimes deadly. The data below shows reported HAB events in [YOUR LOCATION] over time.</p>
+        <p class="section-intro">Atrazine is the second most-used herbicide in the US — and it runs off farm fields every spring, straight into drinking water. The EPA set a legal limit of 3 ppb. The chart below shows what actually showed up in community water systems across Illinois, Kansas, Ohio, and four other states — measured by the chemical's own manufacturer, Syngenta, under a legal agreement with the EPA.</p>
       </div>
 
       <div class="chart-wrapper">
         <canvas id="habChart"></canvas>
       </div>
-      <p class="data-source">Source: EPA Harmful Algal Bloom data — <a href="https://www.epa.gov/nutrientpollution/harmful-algal-blooms" target="_blank">epa.gov</a> · <span class="data-note">Replace placeholder data with real EPA data for your chosen location</span></p>
+      <p class="data-source">Source: EPA Atrazine Monitoring Program (AMP), 2010–2019 — <a href="https://www.epa.gov/ingredients-used-pesticide-products/atrazine-monitoring-program-data-and-results" target="_blank">epa.gov</a> · Finished drinking water samples only · Red bars = peak reading exceeded EPA's 3 ppb legal limit</p>
 
       <div class="takeaway-box">
-        <strong>Takeaway:</strong> Even when water exists, it is not always safe — this directly limits who can swim and when.
+        <strong>Takeaway:</strong> Year after year, atrazine spiked above the legal limit in drinking water — documented by Syngenta's own data. The EU banned atrazine in 2003. The US still allows it. When water is chemically unsafe, it's not just an environmental issue — it closes swimming holes, contaminates public pools' source water, and hits low-income communities hardest.
       </div>
     </div>
   </section>
@@ -106,16 +105,30 @@
       <span class="section-label">04 — Access & Inequality</span>
       <div class="section-header">
         <h2>Who Gets to Swim?</h2>
-        <p class="section-intro">Swimming is often portrayed as a universal sport — but access to lessons, facilities, and safe water is deeply unequal. CDC data reveals stark disparities in swimming ability and drowning risk by race.</p>
+        <p class="section-intro">Swimming is often portrayed as a universal sport — but access to lessons, facilities, and safe water is deeply unequal. The CDC's 2024 Vital Signs report measured exactly this: who knows how to swim, and who has ever had a lesson, broken down by race. The results are stark.</p>
       </div>
 
-      <div class="chart-wrapper">
+      <!-- Stat callout cards for "cannot swim" data (only 2 groups reported by CDC) -->
+      <div class="cannot-swim-stats">
+        <div class="cannot-swim-card highlight">
+          <span class="cannot-swim-pct">37%</span>
+          <span class="cannot-swim-label">of Black adults cannot swim</span>
+        </div>
+        <div class="cannot-swim-divider">vs.</div>
+        <div class="cannot-swim-card">
+          <span class="cannot-swim-pct">15%</span>
+          <span class="cannot-swim-label">of all U.S. adults cannot swim</span>
+        </div>
+      </div>
+
+      <!-- Bar chart: % who never took a swimming lesson (all 5 groups) -->
+      <div class="chart-wrapper" style="margin-top: 2rem;">
         <canvas id="accessChart"></canvas>
       </div>
-      <p class="data-source">Source: CDC — <a href="https://www.cdc.gov/drowning/data/index.html" target="_blank">cdc.gov/drowning</a> · <span class="data-note">Update with specific CDC figures on swimming ability by demographic</span></p>
+      <p class="data-source">Source: CDC Vital Signs, May 2024 — <a href="https://www.cdc.gov/vitalsigns/drowning/index.html" target="_blank">cdc.gov/vitalsigns/drowning</a> · MMWR Vol. 73, No. 20 · All figures from a nationally representative survey, Oct–Nov 2023</p>
 
       <div class="takeaway-box">
-        <strong>Takeaway:</strong> Structural barriers — cost of lessons, lack of nearby pools, historical exclusion — mean swimming has never been equally accessible. Climate change threatens to deepen these gaps.
+        <strong>Takeaway:</strong> 37% of Black adults cannot swim, compared to 15% of all adults. 72% of Hispanic adults have never taken a swimming lesson. These gaps aren't accidental — they trace back to segregated pools, underfunded community facilities, and the high cost of lessons. Drowning death rates for Black people rose 28% between 2019 and 2021. Climate change, by closing more public pools and making natural water unsafe, threatens to deepen every one of these disparities.
       </div>
     </div>
   </section>
@@ -171,7 +184,7 @@
       <div class="future-grid">
         <div class="future-scenario">
           <h3>2030s</h3>
-          <p>More frequent HABs close open-water venues. Pool maintenance costs rise as energy and water become more expensive in drought-prone regions.</p>
+          <p>Pool maintenance costs rise as energy and water become more expensive in drought-prone regions.</p>
         </div>
         <div class="future-scenario">
           <h3>2040s</h3>
@@ -199,7 +212,8 @@
       <span class="section-label">07 — Reflection</span>
       <div class="reflection-center">
         <h2>What should it take<br/>to keep swimming<br/><em>accessible and sustainable?</em></h2>
-        <p>Swimming shaped who I am. The question is whether it gets to shape the next generation too — and for everyone, not just those with resources.</p>
+        <p>Swimming has shaped who I am; I owe it my life and identity. It's given me structure, purpose, and a sense of belonging that I haven't found anywhere else.</p>
+        <p>Because of that, I think we have a responsibility to protect it, to make it more sustainable, and to ensure others have access to it. If something has given so much to us, we should be thinking about how to give back to it.</p>
         <p class="reflection-credit">A Climate Justice Educational Engagement project · EDUC 317</p>
       </div>
     </div>
