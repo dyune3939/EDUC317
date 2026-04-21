@@ -190,20 +190,10 @@ new Chart(accessCtx, {
 // ============================================================
 // SECTION 6 — Pool Sustainability Slider
 // ============================================================
-// Model explanation:
-//   A typical residential pool pump uses ~2,500 kWh/year for a
-//   ~20,000 gallon pool. We scale linearly from there.
-//   Water: pools lose ~15–20% of their volume per year to
-//   evaporation, splash-out, and backwashing. We use 15%.
-//
-// These are simplified estimates — you can cite:
-//   • Pool & Hot Tub Alliance (PHTA) energy reports
-//   • US Dept. of Energy: https://www.energy.gov/eere/buildings/pool-pump-systems
-
-const BASELINE_GALLONS = 20000;      // Reference pool size
-const BASELINE_KWH     = 2500;       // kWh/year for baseline pool
-const WATER_LOSS_RATE  = 0.15;       // 15% of pool volume lost/year
-const EFFICIENT_FACTOR = 0.70;       // Efficient systems use ~30% less energy
+const BASELINE_GALLONS = 20000;
+const BASELINE_KWH     = 2500;
+const WATER_LOSS_RATE  = 0.15;
+const EFFICIENT_FACTOR = 0.70;
 
 const slider        = document.getElementById('poolSlider');
 const poolGallonsEl = document.getElementById('poolGallons');
@@ -213,24 +203,177 @@ const efficientEl   = document.getElementById('efficientOutput');
 
 function updateSlider() {
   const gallons = parseInt(slider.value);
-
-  // Display pool size with comma formatting
   poolGallonsEl.textContent = gallons.toLocaleString();
-
-  // Energy: scale linearly from baseline
-  const energy = Math.round(BASELINE_KWH * (gallons / BASELINE_GALLONS));
-
-  // Water: 15% of pool volume per year
-  const water = Math.round(gallons * WATER_LOSS_RATE);
-
-  // Efficient system energy
+  const energy    = Math.round(BASELINE_KWH * (gallons / BASELINE_GALLONS));
+  const water     = Math.round(gallons * WATER_LOSS_RATE);
   const efficient = Math.round(energy * EFFICIENT_FACTOR);
-
   energyEl.textContent    = energy.toLocaleString();
   waterEl.textContent     = water.toLocaleString();
   efficientEl.textContent = efficient.toLocaleString();
 }
-
-// Initialize on page load + update on drag
 updateSlider();
 slider.addEventListener('input', updateSlider);
+
+// ============================================================
+// SECTION 7 — The Double Burden: Bubble Chart
+// ============================================================
+// SOURCE: Trust for Public Land City Park Facts 2023 (pools per 100k)
+//         US Census ACS 2022 (% people of color, median household income)
+//         Swimply / TPL analysis: swimply.com/blog/post/cities-with-the-fewest-community-pools-per-capita
+//
+// ARGUMENT: Cities with the highest % of residents of color have the
+// fewest public pools per capita. The same communities face contaminated
+// natural water AND no safe pool alternative. This is the double burden.
+//
+// X axis: % residents of color (Census ACS 2022)
+// Y axis: public pools per 100,000 residents (TPL 2023)
+// Bubble size: median household income (larger = higher income)
+// Color: red = high atrazine/water contamination risk, blue = lower risk
+
+const cityData = [
+  // [city, pools_per_100k, pct_poc, median_hhi, contamination_risk, show_label]
+  // contamination_risk: 'high' | 'medium' | 'low'
+  ['Cleveland, OH',    10.8, 67, 32000,  'medium', true],
+  ['Cincinnati, OH',    7.9, 56, 40000,  'medium', true],
+  ['Atlanta, GA',       7.7, 74, 59000,  'low',    true],
+  ['Pittsburgh, PA',    7.2, 36, 53000,  'low',    false],
+  ['Minneapolis, MN',   4.8, 40, 66000,  'high',   false],
+  ['St. Paul, MN',      4.1, 49, 60000,  'high',   false],
+  ['Washington DC',     3.9, 59, 90000,  'low',    false],
+  ['Chicago, IL',       3.2, 67, 63000,  'high',   true],
+  ['Philadelphia, PA',  2.9, 59, 53000,  'low',    false],
+  ['New York, NY',      2.1, 68, 70000,  'low',    false],
+  ['Detroit, MI',       1.9, 82, 34000,  'medium', true],
+  ['Boston, MA',        1.8, 47, 81000,  'low',    false],
+  ['Baltimore, MD',     1.7, 72, 54000,  'low',    false],
+  ['Memphis, TN',       1.5, 76, 43000,  'high',   true],
+  ['St. Louis, MO',     1.4, 55, 46000,  'high',   true],
+  ['Dallas, TX',        1.2, 76, 54000,  'medium', false],
+  ['Kansas City, MO',   1.1, 48, 57000,  'high',   false],
+  ['Los Angeles, CA',   0.9, 73, 72000,  'low',    false],
+  ['Houston, TX',       0.8, 76, 62000,  'medium', true],
+  ['San Antonio, TX',   0.7, 83, 55000,  'medium', true],
+  ['Phoenix, AZ',       0.6, 59, 62000,  'low',    false],
+  ['Las Vegas, NV',     0.5, 60, 61000,  'low',    false],
+  ['Jacksonville, FL',  0.5, 47, 60000,  'low',    false],
+  ['Fort Worth, TX',    0.3, 64, 62000,  'high',   true],
+  ['Anaheim, CA',       0.3, 82, 71000,  'low',    true],
+  ['Fremont, CA',       0.4, 74, 130000, 'low',    false],
+  ['Madison, WI',       0.4, 27, 67000,  'high',   false],
+  ['Seattle, WA',       0.6, 38, 105000, 'low',    false],
+  ['Denver, CO',        1.3, 48, 72000,  'low',    false],
+  ['San Diego, CA',     0.5, 58, 88000,  'low',    false],
+];
+
+// Scale bubble radius by income (sqrt for area perception)
+function incomeToRadius(hhi) {
+  return Math.sqrt(hhi / 1000) * 1.8;
+}
+
+function riskColor(risk, alpha) {
+  if (risk === 'high')   return `rgba(193, 68, 14, ${alpha})`;
+  if (risk === 'medium') return `rgba(233, 196, 106, ${alpha})`;
+  return `rgba(0, 119, 182, ${alpha})`;
+}
+
+const bubbleCtx = document.getElementById('bubbleChart').getContext('2d');
+
+// Custom plugin to draw city labels on labeled points
+const labelPlugin = {
+  id: 'bubbleLabels',
+  afterDatasetsDraw(chart) {
+    const { ctx } = chart;
+    chart.data.datasets.forEach(dataset => {
+      dataset.data.forEach((point, i) => {
+        if (!point.showLabel) return;
+        const meta = chart.getDatasetMeta(chart.data.datasets.indexOf(dataset));
+        if (!meta.data[i]) return;
+        const { x, y } = meta.data[i].getCenterPoint();
+        ctx.save();
+        ctx.font = '500 11px DM Sans, sans-serif';
+        ctx.fillStyle = '#1a1a2e';
+        ctx.textAlign = 'center';
+        ctx.fillText(point.city, x, y - point.r - 5);
+        ctx.restore();
+      });
+    });
+  }
+};
+
+new Chart(bubbleCtx, {
+  type: 'bubble',
+  plugins: [labelPlugin],
+  data: {
+    datasets: [
+      {
+        label: 'High contamination risk',
+        data: cityData
+          .filter(d => d[4] === 'high')
+          .map(d => ({ x: d[2], y: d[1], r: incomeToRadius(d[3]), city: d[0], income: d[3], showLabel: d[5] })),
+        backgroundColor: 'rgba(193, 68, 14, 0.55)',
+        borderColor: 'rgba(193, 68, 14, 0.9)',
+        borderWidth: 1.5,
+      },
+      {
+        label: 'Medium contamination risk',
+        data: cityData
+          .filter(d => d[4] === 'medium')
+          .map(d => ({ x: d[2], y: d[1], r: incomeToRadius(d[3]), city: d[0], income: d[3], showLabel: d[5] })),
+        backgroundColor: 'rgba(233, 196, 106, 0.6)',
+        borderColor: 'rgba(200, 160, 60, 0.9)',
+        borderWidth: 1.5,
+      },
+      {
+        label: 'Lower contamination risk',
+        data: cityData
+          .filter(d => d[4] === 'low')
+          .map(d => ({ x: d[2], y: d[1], r: incomeToRadius(d[3]), city: d[0], income: d[3], showLabel: d[5] })),
+        backgroundColor: 'rgba(0, 119, 182, 0.45)',
+        borderColor: 'rgba(0, 119, 182, 0.85)',
+        borderWidth: 1.5,
+      },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: { display: true, position: 'top' },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const p = ctx.raw;
+            return [
+              ` ${p.city}`,
+              ` ${p.x}% residents of color`,
+              ` ${p.y} public pools per 100k`,
+              ` Median income: $${p.income.toLocaleString()}`,
+            ];
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        min: 20,
+        max: 90,
+        title: {
+          display: true,
+          text: '% residents of color (Census ACS 2022)',
+          font: { size: 12 }
+        },
+        grid: { color: 'rgba(0,0,0,0.05)' }
+      },
+      y: {
+        min: 0,
+        max: 12,
+        title: {
+          display: true,
+          text: 'Public pools per 100,000 residents (TPL 2023)',
+          font: { size: 12 }
+        },
+        grid: { color: 'rgba(0,0,0,0.05)' }
+      }
+    }
+  }
+});
