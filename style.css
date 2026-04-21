@@ -287,6 +287,56 @@ a { color: var(--water); }
 #water-safety { background: var(--cream); padding: 7rem 0 5rem; }
 #access       { background: var(--white); padding: 7rem 0 5rem; }
 
+/* Cannot-swim stat callouts */
+.cannot-swim-stats {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem 0 0;
+  flex-wrap: wrap;
+}
+
+.cannot-swim-card {
+  background: var(--cream);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  flex: 1;
+  min-width: 200px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.cannot-swim-card.highlight {
+  border-color: var(--danger);
+  background: #fff5f2;
+}
+
+.cannot-swim-pct {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.cannot-swim-card.highlight .cannot-swim-pct { color: var(--danger); }
+
+.cannot-swim-label {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.cannot-swim-divider {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #999;
+  flex-shrink: 0;
+}
+
 .section-header { margin-bottom: 3rem; }
 
 .section-intro {
