@@ -653,3 +653,51 @@ input[type="range"]::-webkit-slider-thumb {
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+
+/* Waves4Change callout */
+.waves-callout {
+  margin-top: 3.5rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.waves-logo-text {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.waves-desc {
+  font-size: 0.95rem !important;
+  color: rgba(255,255,255,0.85) !important;
+  line-height: 1.7 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.waves-btn {
+  display: inline-block;
+  background: var(--white);
+  color: var(--water) !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.3s;
+}
+
+.waves-btn:hover {
+  background: var(--water-light);
+  color: var(--ink) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
