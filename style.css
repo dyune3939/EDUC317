@@ -657,13 +657,14 @@ input[type="range"]::-webkit-slider-thumb {
 /* Waves4Change callout */
 .waves-callout {
   margin-top: 3.5rem;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  max-width: 600px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  max-width: 620px;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.2);
 }
 
 .waves-logo-text {
@@ -686,18 +687,21 @@ input[type="range"]::-webkit-slider-thumb {
   display: inline-block;
   background: var(--white);
   color: var(--water) !important;
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.75rem 2rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 1.1rem 3rem;
   border-radius: 2rem;
   text-decoration: none;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   transition: all 0.3s;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+  margin-top: 0.5rem;
+  text-transform: uppercase;
 }
 
 .waves-btn:hover {
   background: var(--water-light);
   color: var(--ink) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
 }
